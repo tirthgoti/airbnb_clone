@@ -1,58 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">Airbnb listing clone architecture</title>
-  <desc id="desc">Architecture diagram showing the Vite entry point, React application, CSS, static assets, and deployment output.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">Airbnb listing clone architecture diagram</title>
+  <desc id="desc">Layered architecture diagram showing the browser, Vite entry point, React page, local state, styling, public assets, build output, and Vercel deployment.</desc>
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#52606d"/>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafb"/>
+      <stop offset="1" stop-color="#eef2f4"/>
+    </linearGradient>
+    <linearGradient id="app" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff0f3"/>
+      <stop offset="1" stop-color="#ffe0e7"/>
+    </linearGradient>
+    <linearGradient id="delivery" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8f8ef"/>
+      <stop offset="1" stop-color="#d7f0e3"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#64727d" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L10,4 z" fill="#64727d"/>
     </marker>
     <style>
-      .title { font: 700 28px Arial, sans-serif; fill: #17202a; }
-      .label { font: 700 18px Arial, sans-serif; fill: #17202a; }
-      .text { font: 15px Arial, sans-serif; fill: #52606d; }
-      .box { stroke: #c8d0d8; stroke-width: 2; rx: 14; }
-      .arrow { stroke: #52606d; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .title { font: 700 34px Arial, sans-serif; fill: #18222b; }
+      .subtitle { font: 16px Arial, sans-serif; fill: #667580; }
+      .section { font: 700 13px Arial, sans-serif; letter-spacing: 2px; fill: #87939b; }
+      .label { font: 700 20px Arial, sans-serif; fill: #18222b; }
+      .text { font: 15px Arial, sans-serif; fill: #596873; }
+      .small { font: 13px Arial, sans-serif; fill: #73818a; }
+      .box { stroke: #cbd5da; stroke-width: 2; rx: 18; filter: url(#shadow); }
+      .arrow { stroke: #64727d; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 8 7; }
     </style>
   </defs>
-  <rect width="1200" height="720" fill="#f7f8f9"/>
-  <text x="60" y="62" class="title">Airbnb Listing Clone Architecture</text>
-  <text x="60" y="92" class="text">React + TypeScript + Vite static front-end submission</text>
 
-  <rect x="60" y="150" width="250" height="150" class="box" fill="#fff"/>
-  <text x="85" y="190" class="label">Browser</text>
-  <text x="85" y="222" class="text">User interactions</text>
-  <text x="85" y="248" class="text">Responsive layout</text>
-  <text x="85" y="274" class="text">Gallery, calendar, modals</text>
+  <rect width="1400" height="860" fill="url(#canvas)"/>
+  <text x="70" y="68" class="title">Airbnb Listing Clone</text>
+  <text x="70" y="100" class="subtitle">Layered architecture · React + TypeScript + Vite · static front-end submission</text>
 
-  <rect x="385" y="130" width="300" height="190" class="box" fill="#ffe8ed"/>
-  <text x="415" y="174" class="label">React application</text>
-  <text x="415" y="208" class="text">src/main.tsx</text>
-  <text x="415" y="234" class="text">src/App.tsx</text>
-  <text x="415" y="260" class="text">Local component state</text>
-  <text x="415" y="286" class="text">Static listing mock data</text>
+  <text x="70" y="160" class="section">PRESENTATION</text>
+  <rect x="70" y="185" width="260" height="180" class="box" fill="#ffffff"/>
+  <text x="100" y="230" class="label">Browser</text>
+  <text x="100" y="264" class="text">Listing page</text>
+  <text x="100" y="290" class="text">Responsive layout</text>
+  <text x="100" y="316" class="text">Gallery, calendar, modals</text>
+  <text x="100" y="342" class="small">User interactions</text>
 
-  <rect x="760" y="110" width="330" height="210" class="box" fill="#fff"/>
-  <text x="790" y="154" class="label">UI styling</text>
-  <text x="790" y="188" class="text">src/App.css</text>
-  <text x="790" y="214" class="text">src/index.css</text>
-  <text x="790" y="240" class="text">Airbnb Cereal font</text>
-  <text x="790" y="266" class="text">Lucide React icons</text>
-  <text x="790" y="292" class="text">Responsive breakpoints</text>
+  <text x="385" y="160" class="section">APPLICATION</text>
+  <rect x="385" y="185" width="310" height="180" class="box" fill="url(#app)"/>
+  <text x="415" y="230" class="label">React page</text>
+  <text x="415" y="264" class="text">src/main.tsx → src/App.tsx</text>
+  <text x="415" y="290" class="text">Listing sections and overlays</text>
+  <text x="415" y="316" class="text">Static listing data</text>
+  <text x="415" y="342" class="small">React 19 + TypeScript</text>
 
-  <rect x="190" y="430" width="300" height="170" class="box" fill="#fff"/>
-  <text x="220" y="474" class="label">Public assets</text>
-  <text x="220" y="508" class="text">public/images/</text>
-  <text x="220" y="534" class="text">public/fonts/</text>
-  <text x="220" y="560" class="text">airbnb-logo.svg</text>
+  <text x="750" y="160" class="section">STATE</text>
+  <rect x="750" y="185" width="270" height="180" class="box" fill="#ffffff"/>
+  <text x="780" y="230" class="label">Local UI state</text>
+  <text x="780" y="264" class="text">Gallery / lightbox</text>
+  <text x="780" y="290" class="text">Amenities / reviews</text>
+  <text x="780" y="316" class="text">Calendar / sticky nav</text>
+  <text x="780" y="342" class="small">No API or database</text>
 
-  <rect x="650" y="430" width="390" height="170" class="box" fill="#e8f5ee"/>
-  <text x="680" y="474" class="label">Production delivery</text>
-  <text x="680" y="508" class="text">Vite build output: dist/</text>
-  <text x="680" y="534" class="text">Vercel rewrite: vercel.json</text>
-  <text x="680" y="560" class="text">Static hosting</text>
+  <text x="1075" y="160" class="section">PRESENTATION SUPPORT</text>
+  <rect x="1075" y="185" width="255" height="180" class="box" fill="#ffffff"/>
+  <text x="1105" y="230" class="label">Styles and icons</text>
+  <text x="1105" y="264" class="text">src/App.css</text>
+  <text x="1105" y="290" class="text">src/index.css</text>
+  <text x="1105" y="316" class="text">Lucide React</text>
+  <text x="1105" y="342" class="small">Responsive breakpoints</text>
 
-  <path d="M310 225 H385" class="arrow"/>
-  <path d="M685 225 H760" class="arrow"/>
-  <path d="M500 320 V430" class="arrow"/>
-  <path d="M685 320 C685 380 845 370 845 430" class="arrow"/>
-  <path d="M685 225 C720 225 720 515 650 515" class="arrow"/>
+  <text x="70" y="445" class="section">CONTENT AND ASSETS</text>
+  <rect x="70" y="470" width="410" height="190" class="box" fill="#ffffff"/>
+  <text x="100" y="515" class="label">Local public assets</text>
+  <text x="100" y="549" class="text">public/images/ — listing media</text>
+  <text x="100" y="575" class="text">public/fonts/ — reference font</text>
+  <text x="100" y="601" class="text">airbnb-logo.svg — brand asset</text>
+  <text x="100" y="627" class="small">No remote runtime dependency</text>
+
+  <text x="555" y="445" class="section">BUILD PIPELINE</text>
+  <rect x="555" y="470" width="300" height="190" class="box" fill="#ffffff"/>
+  <text x="585" y="515" class="label">Vite build</text>
+  <text x="585" y="549" class="text">npm run lint</text>
+  <text x="585" y="575" class="text">npm run build</text>
+  <text x="585" y="601" class="text">dist/ static output</text>
+  <text x="585" y="627" class="small">TypeScript + bundling</text>
+
+  <text x="930" y="445" class="section">DELIVERY</text>
+  <rect x="930" y="470" width="400" height="190" class="box" fill="url(#delivery)"/>
+  <text x="960" y="515" class="label">Static hosting</text>
+  <text x="960" y="549" class="text">Vercel / Netlify / GitHub Pages</text>
+  <text x="960" y="575" class="text">vercel.json SPA fallback</text>
+  <text x="960" y="601" class="text">Live listing URL</text>
+  <text x="960" y="627" class="small">Deploy dist/ after build</text>
+
+  <path d="M330 275 H385" class="arrow"/>
+  <path d="M695 275 H750" class="arrow"/>
+  <path d="M1020 275 H1075" class="arrow"/>
+  <path d="M540 365 C540 415 360 420 275 470" class="arrow dashed"/>
+  <path d="M900 365 C900 415 720 420 705 470" class="arrow"/>
+  <path d="M855 565 H930" class="arrow"/>
+
+  <rect x="70" y="735" width="1260" height="55" rx="14" fill="#18222b"/>
+  <text x="100" y="770" font-family="Arial, sans-serif" font-size="15" fill="#ffffff">Scope: polished front-end clone with static mock data; real authentication, payments, availability, and backend booking are intentionally outside this submission.</text>
 </svg>
