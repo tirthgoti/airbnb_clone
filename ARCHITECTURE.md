@@ -1,53 +1,94 @@
 # Architecture Overview
 
-## Project purpose
-This project is a front-end Airbnb-style listing page clone built with React, TypeScript, and Vite. The goal is to closely match the provided listing reference while keeping the project fast, responsive, and easy to review in a browser.
+## Purpose
 
-## Stack
-- React 19
-- TypeScript
-- Vite
-- Lucide React
-- Custom CSS styling
+This project is a responsive, front-end Airbnb listing clone built with React, TypeScript, and Vite. The saved reference listing is the visual source of truth for the layout, copy, typography, imagery, and interaction states.
 
-## High-level structure
+The architecture is deliberately small: one page, local mock data, local assets, and component state. That keeps the submission deterministic and easy to run without a backend or environment variables.
 
-### App shell
-- `src/App.tsx` contains the complete single-page listing experience.
-- `src/App.css` holds the Airbnb-inspired styling, responsive layout, and interaction visuals.
-- `src/index.css` provides global resets and font setup.
+See the companion visual diagram in [architecture-diagram.svg](architecture-diagram.svg).
 
-### Static assets
-- `public/images/` stores listing and supporting visual assets.
-- `public/fonts/` contains the Airbnb-style font used in the page.
-- `public/airbnb-logo.svg` provides the Airbnb logo asset.
+## System at a glance
 
-### Runtime behavior
-The page uses local component state to manage UI behaviors such as:
-- modal gallery/lightbox viewing
-- amenity expansion
-- reservation action states
-- date/month display states
-- selected gallery and nearby stays navigation
+```mermaid
+flowchart LR
+	Browser[Browser] --> Entry[src/main.tsx]
+	Entry --> App[src/App.tsx]
+	App --> State[Local UI state]
+	App --> Styles[src/App.css and src/index.css]
+	App --> Assets[public images, font, logo]
+	App --> UI[Listing page and modal states]
+	Styles --> UI
+	Assets --> UI
+	UI --> Build[Vite production build]
+	Build --> Deploy[Static host / Vercel]
+```
 
-## Key page sections
-1. Header and sticky top navigation
-2. Photo gallery and lightbox
-3. Property summary and host details
-4. Guest favourite / review highlight section
-5. About section and stay details
-6. Amenities and sleep/room information
-7. Calendar-like booking panel
-8. Reviews, location, host card, and things-to-know sections
-9. Nearby listings carousel
+## Technology layers
 
-## Data model
-The app currently uses static mock data embedded in the component layer, rather than a database or API. This is intentional for a front-end submission and makes it easier to match the reference design exactly.
+| Layer | Responsibility | Main files |
+| --- | --- | --- |
+| Entry point | Mounts React into the HTML root element | `src/main.tsx` |
+| Page composition | Renders the listing, sections, and overlays | `src/App.tsx` |
+| Presentation | Layout, responsive rules, states, and visual styling | `src/App.css`, `src/index.css` |
+| UI primitives | Familiar controls and interface icons | `lucide-react` |
+| Static content | Listing photos, host image, rating chips, logo, and font | `public/` |
+| Delivery | Type-checks, bundles, and serves the static app | `package.json`, `vite.config.ts`, `vercel.json` |
 
-## Deployment model
-The app is built as a static Vite site and is compatible with Vercel or other static hosting providers.
+## Runtime flow
 
-## Notes for submission
-- The app is production-build friendly.
-- It is suitable for a visual UI and frontend clone submission.
-- Backend booking functionality is intentionally not included because the assignment is front-end focused.
+1. Vite serves `index.html` and loads `src/main.tsx`.
+2. `main.tsx` mounts the `App` component into `#root`.
+3. `App` renders the listing page from local arrays for photos, amenities, reviews, and nearby stays.
+4. User actions update local React state and change the visible UI without a network request.
+5. CSS controls the responsive desktop/mobile layout and visual states.
+6. Vite compiles the same entry point into the deployable `dist/` folder.
+
+## State and interaction boundaries
+
+The page keeps transient interaction state inside `App`:
+
+- `saved`: toggles the Save button state.
+- `tourOpen`: opens the full photo-tour overlay.
+- `lightboxIndex`: controls the active photo and previous/next navigation.
+- `amenitiesOpen`: opens the full amenities modal.
+- `descriptionOpen` and `reviewsOpen`: expand and collapse content.
+- `monthOffset`: changes the displayed calendar months.
+- `stickyVisible`: controls the sticky navigation visibility on scroll.
+- `toast`: displays short feedback messages for actions such as Share and Reserve.
+
+The app also registers a small keyboard/scroll effect boundary for Escape, arrow-key photo navigation, and sticky navigation behavior. Overlay state locks body scrolling while a modal is open.
+
+## Page composition
+
+1. Header with logo, search controls, and account actions
+2. Sticky section navigation and reservation summary
+3. Listing title, Share/Save actions, and photo gallery
+4. Property summary and host identity
+5. Guest favourite and feature highlights
+6. About section and sleeping arrangements
+7. Amenities and expanded amenities modal
+8. Calendar-style stay dates and reservation sidebar
+9. Reviews and rating categories
+10. Location map mock, host card, and things to know
+11. Nearby stay cards
+12. Photo tour and lightbox overlays
+
+## Data and persistence
+
+There is no API, database, authentication, payment flow, or server-side persistence. Listing content is static mock data embedded in `src/App.tsx`. This is intentional for a visual front-end submission and ensures the page renders consistently offline after dependencies are installed.
+
+## Build and deployment
+
+```text
+npm install -> npm run lint -> npm run build -> dist/
+											  -> Vercel/static host
+```
+
+`vercel.json` provides SPA fallback routing so direct browser requests resolve to `index.html`. The application can also be hosted on Netlify, GitHub Pages, or any static file host configured for Vite output.
+
+## Submission boundaries
+
+- Included: responsive UI, reference-aligned copy and assets, gallery/lightbox, modal amenities, calendar display, reviews, host/location sections, documentation, and deployment configuration.
+- Intentionally omitted: real booking transactions, user accounts, payments, backend availability, and database persistence.
+- Validation commands: `npm run lint` and `npm run build`.
